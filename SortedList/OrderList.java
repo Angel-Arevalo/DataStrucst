@@ -2,7 +2,7 @@ package SortedList;
 import StaticList.ListTest;
 import ListError.NotSuchElement;
 
-public class OrderList<Type extends Comparable> implements SortedList<Type> {
+public class OrderList<Type extends Comparable<Type>> implements SortedList<Type> {
     private ListTest<Type> list;
 
     public OrderList(int lenght) {
@@ -23,7 +23,8 @@ public class OrderList<Type extends Comparable> implements SortedList<Type> {
     @Override
     public void insert(Type element) {
         int index = search(element);
-        list.AddAfter(element, index);
+        if(index == 0) list.PushFront(element);
+        else list.AddAfter(element, index);
     }
 
     @Override
@@ -57,5 +58,9 @@ public class OrderList<Type extends Comparable> implements SortedList<Type> {
     @Override
     public int size() {
         return list.getCounter();
+    }
+
+    public String toString() {
+        return list.toString();
     }
 }

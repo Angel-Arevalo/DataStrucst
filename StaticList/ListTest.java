@@ -48,7 +48,7 @@ public class ListTest<TypeName> {
 
     public void print() {
         System.out.print("Elementos en el arreglo: ");
-        System.out.println(toString() + "]");
+        System.out.println(toString());
     }
 
     public int find(TypeName element) {
@@ -118,7 +118,7 @@ public class ListTest<TypeName> {
     public String toString() {
         String toReturn = "[";
 
-        for(int i = 0; i < counter; i++) toReturn += list[i] + ((i != counter - 1)? " ": ""); 
+        for(int i = 0; i < counter; i++) toReturn += list[i] + ((i != counter - 1)? ", ": ""); 
         
         return toReturn + "]";
     }
