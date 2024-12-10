@@ -22,4 +22,16 @@ public class Pila<T> {
     public void print() {
         list.print();
     }
+
+    public Boolean isEmpty() {
+        return list.Empty();
+    }
+
+    public int size() {
+        return list.getCounter();
+    }
+
+    public void copy(Pila<T> t) {
+        list.copyList(t.list);
+    }
 }

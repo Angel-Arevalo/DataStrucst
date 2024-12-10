@@ -129,6 +129,6 @@ public class ListTest<TypeName> {
     }
 
     public void copyList(ListTest<TypeName> toCopy) {
-        for(int i = 0; i < toCopy.list.length; i++) list[i] = toCopy.list[i];
+        for(int i = 0; i < toCopy.counter; i++) list[i] = toCopy.list[i];
     }
 }

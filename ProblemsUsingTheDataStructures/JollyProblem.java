@@ -16,8 +16,7 @@ final class JollyProblem {
             list = x.readSelections();
             if(list.getLength() == 0) execute = false;
             else if(list.getLength() == 1) {
-                if(list.getIndex(0) == 1) System.out.println("Jolly");
-                else System.out.println("Not jolly");
+                System.out.println("Not jolly");
             }else {
                 orderList = new OrderList<Integer>(list.getLength());
                 verify();
@@ -31,15 +30,11 @@ final class JollyProblem {
             orderList.insert(l);
         }
 
+        orderList.print();
         jolly();
     }
 
     public static void jolly() {
-        if(orderList.size() != list.getLength() - 1) {
-            System.out.println("Not jolly");
-            return;
-        }
-
         for(int i = 1; i < orderList.size(); i++) {
             if(i != orderList.get(i - 1)) {
                 System.out.println("Not jolly");

@@ -29,12 +29,7 @@ final class Main {
     }
 
     public static void jolly() {
-        if(orderList.size() != list.getLength() - 1) {
-            System.out.println("Not jolly");
-            return;
-        }
-
-        for(int i = 1; i < orderList.size(); i++) {
+        for(int i = 1; i <= list.getLength() - 1; i++) {
             if(i != orderList.get(i - 1)) {
                 System.out.println("Not jolly");
                 return;
@@ -53,18 +48,23 @@ class OrderList<Type extends Comparable<Type>> {
     }
 
     private int search(Type element) {
+        int index = 0;
         for (int i = 0; i < list.getCounter(); i++) {
-            if (list.getIndex(i).compareTo(element) >= 0) {
-                return i;
+            if (list.getIndex(i).compareTo(element) == -1) {
+                index = i;
             }
+            else if(list.getIndex(i).compareTo(element) == 0) return -1;
         }
-        return list.getCounter();
+        return index;
     }
 
     public void insert(Type element) {
         int index = search(element);
+        if(index == -1) return;
         if(index == 0) list.PushFront(element);
         else list.AddAfter(element, index);
+
+        print();
     }
 
     public int find(Type elemet) {
