@@ -9,15 +9,13 @@ public class OrderList<Type extends Comparable<Type>> implements SortedList<Type
         list = new ListTest<Type>(lenght);
     }
 
-    private int search(Type elemet) {
-        int index = 0;
-        if(empty()) return index;
-        for(int  i = 0; i < list.getCounter(); i++) {
-            if(list.getIndex(i).compareTo(elemet) == -1 || 
-                list.getIndex(i).compareTo(elemet) == 0) index = i;
+    private int search(Type element) {
+        for (int i = 0; i < list.getCounter(); i++) {
+            if (list.getIndex(i).compareTo(element) >= 0) {
+                return i;
+            }
         }
-
-        return index;
+        return list.getCounter();
     }
 
     @Override
@@ -58,6 +56,10 @@ public class OrderList<Type extends Comparable<Type>> implements SortedList<Type
     @Override
     public int size() {
         return list.getCounter();
+    }
+
+    public Type get(int index) {
+        return list.getIndex(index);
     }
 
     public String toString() {

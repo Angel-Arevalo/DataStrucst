@@ -15,7 +15,7 @@ public class ListTest<TypeName> {
 
     public void PushFront(TypeName toAdd) {
         if (isFull()) {
-            throw new FullError();
+            throw new RuntimeException();
         } else {
             for (int i = counter - 1; i >= 0; i--) {
                 list[i + 1] = list[i];
@@ -27,7 +27,7 @@ public class ListTest<TypeName> {
 
     public void PushBack(TypeName toAdd) {
         if (isFull()) {
-            throw new FullError();
+            throw new RuntimeException();
         } else {
             list[counter] = toAdd;
             counter++;
@@ -42,7 +42,7 @@ public class ListTest<TypeName> {
         if (counter > 0) {
             counter --;
         } else {
-            throw new EmptyError();
+            throw new RuntimeException();
         }
     }
 
@@ -60,9 +60,9 @@ public class ListTest<TypeName> {
 
     public void Erase(int index) {
         if (counter == 0) {
-            throw new EmptyError();
+            throw new RuntimeException();
         } else if (index < 0 || index >= counter) {
-            throw new OutIndexError();
+            throw new RuntimeException();
         } else {
             for (int i = index; i < counter - 1; i++) {
                 list[i] = list[i + 1];
@@ -73,9 +73,9 @@ public class ListTest<TypeName> {
 
     public void AddBefore(TypeName element, int index) {
         if (isFull()) {
-            throw new FullError();
+            throw new RuntimeException();
         } else if (index < 0 || index > counter + 1) {
-            throw new OutIndexError();
+            throw new RuntimeException();
         } else {
             for (int i = counter; i > index; i--) {
                 list[i] = list[i - 1];
@@ -87,9 +87,9 @@ public class ListTest<TypeName> {
 
     public void AddAfter(TypeName element, int index) {
         if (isFull()) {
-            throw new EmptyError();
+            throw new RuntimeException();
         } else if (index < 0 || index > counter) {
-            throw new OutIndexError();
+            throw new RuntimeException();
         } else {
             AddBefore(element, index + 1);
         }
@@ -124,7 +124,7 @@ public class ListTest<TypeName> {
     }
 
     public TypeName getIndex(int index) {
-        if(index < 0 || counter <= index) throw new OutIndexError();
+        if(index < 0 || counter <= index) throw new RuntimeException();
         return list[index]; 
     }
 
