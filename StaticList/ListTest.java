@@ -131,4 +131,9 @@ public class ListTest<TypeName> {
     public void copyList(ListTest<TypeName> toCopy) {
         for(int i = 0; i < toCopy.counter; i++) list[i] = toCopy.list[i];
     }
+
+    public void set(int index, TypeName newItem) {
+        if(index < 0 || counter <= index) throw new RuntimeException();
+        list[index] = newItem;
+    }
 }

@@ -12,8 +12,7 @@ public class Queues<T> {
 
     public void addLast(T newItem) {
         if (counter == length) {
-            System.out.println("Error: Lista llena. No se puede agregar el elemento.");
-            return;
+            throw new RuntimeException("Error: Lista llena. No se puede agregar el elemento.");
         }
         list[back] = newItem;
         back = (back + 1) % length; 
@@ -22,8 +21,7 @@ public class Queues<T> {
 
     public void addFirst(T newItem) {
         if (counter == length) {
-            System.out.println("Error: Lista llena. No se puede agregar el elemento.");
-            return;  
+            throw new RuntimeException("Error: Lista llena. No se puede agregar el elemento.");
         }
         front = (front - 1 + length) % length; 
         list[front] = newItem;
@@ -32,8 +30,7 @@ public class Queues<T> {
 
     public void removeLast() {
         if (counter == 0) {
-            System.out.println("Error: Lista vacia. No se puede eliminar el elemento.");
-            return;
+            throw new RuntimeException("Error: Lista vacia. No se puede eliminar el elemento.");
         }
         back = (back - 1 + length) % length; 
         counter--;
@@ -41,8 +38,7 @@ public class Queues<T> {
 
     public void removeFirst() {
         if (counter == 0) {
-            System.out.println("Error: Lista vacia. No se puede eliminar el elemento.");
-            return;
+            throw new RuntimeException("Error: Lista vacia. No se puede eliminar el elemento.");
         }
         front = (front + 1) % length;
         counter--;
@@ -56,9 +52,27 @@ public class Queues<T> {
         while (c < counter) {
             System.out.print(list[i].toString());
             i = (i + 1) % length;
-            if (c < counter - 1) System.out.print(" "); // Only space between elements
+            if (c < counter - 1) System.out.print(" ");
             c++;
         }
         System.out.println("]");
+    }
+
+    public void copy(Queues<T> another) {
+        back = 0;
+        for(int i = 0, j = another.front; i < another.counter; i++, j = (j+1)%another.length) {
+            list[i] = another.list[j];
+            back ++;
+        }
+
+        counter = another.counter;
+    }
+
+    public int getLength() {
+        return list.length;
+    }
+
+    public int getCounter() {
+        return counter;
     }
 }
