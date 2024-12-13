@@ -1,35 +1,49 @@
 package ProblemsUsingTheDataStructures;
 
-import ReadSelection.ReadSelection;
-import StaticList.ListTest;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.IOException;
+import java.io.BufferedWriter;
+import java.io.OutputStreamWriter;
+import java.util.ArrayList;
 
-public class StringMadness {
-    private static ReadSelection reader = new ReadSelection();
-    private static ListTest<String> list;
+class JoinStrings {
+    private static BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+    private static BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(System.out));
 
-    public static void main(String[] args) {
-        list = new ListTest<String>(reader.readInt());
+    public static void main(String[] args) throws IOException {
+        int length = Integer.parseInt(reader.readLine());
+        String[] strings = new String[length];
+        int lastIndex = 0;
 
-        for(int i = 0; i < list.getLength(); i++) {
-            list.PushBack(reader.readLine());
+        for (int i = 0; i < length; i++) {
+            strings[i] = reader.readLine();
         }
 
-        int last = -1;
+        ArrayList<Integer>[] list = new ArrayList[length];
 
-        do {
-            ListTest<Integer> options = reader.readSelections();
-            if(options.getLength() == 0) break;
-            if(options.getIndex(0) < 0 || options.getIndex(1) < 0 
-              || list.getLength() < options.getIndex(0) || list.getLength() < options.getIndex(1)) {
-                break;
-            } 
-            last = options.getIndex(0);
-            int f = options.getIndex(1);
-            String newString =  list.getIndex(last - 1) + list.getIndex(f - 1);
-            list.set(f - 1, null);
-            list.set(last - 1, newString);
-        }while(true);
+        for(int i = 0; i < length; i++) {
+            list[i] = (new ArrayList<>());
+        }
 
-        if(last != -1)System.out.println(list.getIndex(last - 1));
+        for (int i = 0; i < length - 1; i++) {
+            String[] options = reader.readLine().split(" ");
+            int o1 = Integer.parseInt(options[0]);
+            int o2 = Integer.parseInt(options[1]);
+            list[o1 - 1].add(o2 - 1);
+            lastIndex = o1 - 1;
+        }
+
+        print(list, strings, lastIndex);
+        writer.flush();
+    }
+
+    private static void print(ArrayList<Integer>[] matrix, String[] words, int index) throws IOException{
+        writer.write(words[index]);
+       
+
+        for(int newIndex: matrix[index]) {
+            print(matrix, words, newIndex);
+        }
     }
 }

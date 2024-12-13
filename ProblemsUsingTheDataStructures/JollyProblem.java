@@ -1,42 +1,64 @@
 package ProblemsUsingTheDataStructures;
 
-import ReadSelection.ReadSelection;
-import StaticList.ListTest;
-import SortedList.OrderList;
+import java.util.Scanner;
 
+public class JollyProblem {
+    private static Scanner reader = new Scanner(System.in);
+    private static int[] values;
+    private static boolean execute = true;
 
-final class JollyProblem {
-    private static ReadSelection x = new ReadSelection();
-    private static Boolean execute = true;
-    private static ListTest<Integer> list;
-    private static OrderList<Integer> orderList;
     public static void main(String[] args) {
-        
         do {
-            list = x.readSelections();
-            if(list.getLength() == 0) execute = false;
-            else if(list.getLength() == 1) {
-                System.out.println("Not jolly");
-            }else {
-                orderList = new OrderList<Integer>(list.getLength());
-                verify();
+            values = read();
+            if(values.length == 0) execute = false;
+            else {
+                jolly();
             }
-        }while(execute);
+        } while(execute);
     }
 
-    public static void verify() {
-        for(int i = 0; i < list.getLength() - 1; i++) {
-            int l = Math.abs(list.getIndex(i) - list.getIndex(i + 1));
-            orderList.insert(l);
+    // read the values of the line of the input
+    private static int[] read() {
+        String[] line = reader.nextLine().split(" ");
+        int size = Integer.parseInt(line[0]);
+
+        int[] val = new int[size];
+
+        for(int i = 1, j = 0; i <= size; i++, j++) {
+            val[j] = Integer.parseInt(line[i]);
         }
 
-        orderList.print();
-        jolly();
+        return val;
     }
 
-    public static void jolly() {
-        for(int i = 1; i < orderList.size(); i++) {
-            if(i != orderList.get(i - 1)) {
+    private static void jolly() {
+        int length = values.length;
+
+        if(length == 1) {
+            System.out.println("Jolly");
+            return;
+        }else if(length == 2) {
+            if(Math.abs(values[0] - values[1]) == 1) {
+                System.out.println("Jolly");
+            }else System.out.println("Not jolly");
+
+            return;
+        }
+
+        Boolean[] vol = new Boolean[length - 1];
+
+        for(int i = 0; i < length - 1; i++) {
+            int absVal = Math.abs(values[i] - values[i+1]);
+
+            if(absVal == 0 || length - 1 < absVal || vol[absVal - 1]) {
+                System.out.println("Not jolly");
+                return;
+            }
+            vol[absVal - 1] = true;
+        }
+
+        for(Boolean c: vol) {
+            if(!c) {
                 System.out.println("Not jolly");
                 return;
             }

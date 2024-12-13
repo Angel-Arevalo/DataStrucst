@@ -1,32 +1,42 @@
 package ProblemsUsingTheDataStructures;
 
-import DinamicList.DinamicList;
-import StaticList.ListTest;
-import ReadSelection.ReadSelection;
-
+import java.util.Scanner;
 
 public class BugPlanning {
-    private static DinamicList<Integer> list = new DinamicList<Integer>();
-    private static ReadSelection reader = new ReadSelection();
+    private static Scanner reader = new Scanner(System.in);
+
+    private static int[] readSelections() {
+        String[] line = reader.nextLine().split(" ");
+        int[] val = new int[line.length];
+
+        for(int i = 0; i < val.length; i++) {
+            val[i] = Integer.parseInt(line[i]);
+        }
+
+        return val;
+    }
 
     public static void main(String[] args) {
-        reader.readInt();
-        ListTest<Integer> courses = reader.readSelections();
+        int length = readSelections()[0];
+        int newLength = 1;
+        int[] values = readSelections();
+        int[] finalInts = new int[length];
 
-        int g = courses.getIndex(0);
-        list.PushBack(g);
-        for(int i = 0; i < courses.getLength(); i++) {
-            if(g < courses.getIndex(i)) {
-                g = courses.getIndex(i);
-                list.PushBack(g);
+        int g = values[0];
+        finalInts[0] = g;
+
+        for(int i = 1, j = 1; i < length; i++) {
+            if(g < values[i]) {
+                finalInts[j] = values[i];
+                j++;
+                newLength++;
+                g = values[i];
             }
         }
 
-        int size = list.size();
-        System.out.println(size);
-        
-        for(int i = 0; i < size; i++) {
-            System.out.print(list.get(i) + ((i < size - 1)? " ": ""));
+        System.out.println(newLength);
+        for(int c = 0; c < newLength; c++) {
+            System.out.print(finalInts[c] + " ");
         }
     }
 }
