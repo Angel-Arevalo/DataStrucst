@@ -1,45 +1,27 @@
 package DinamicList;
 
+import StaticList.ListTest;
 import StaticList.Pila;
 
-public class Stack<T> {
-    private Pila<T> list = new Pila<T>(10);
+public class Stack<T> extends Pila<T> {
 
     public Stack(int length) {
-        list = new Pila<T>(length);
+        super(length);
     }
 
-    public Stack() {}
+    public Stack() {
+        super(10);
+    }
 
-
+    @Override
     public void push(T toEnc) {
-        try {
-            list.push(toEnc);
-        }catch(RuntimeException e) {
-            Pila<T> newStack = new Pila<>(list.size()*2);
-            newStack.copy(list);
+        if(list.getCounter() < list.getLength()) {
+            super.push(toEnc);
+        }else {
+            ListTest<T> newStack = new ListTest<>(list.getLength()*2);
+            newStack.copyList(list);
             list = newStack;
-            list.push(toEnc);
+            super.push(toEnc);
         }
-    }
-
-    public void pop() {
-        list.pop();
-    }
-
-    public T top() {
-        return list.top();
-    }
-
-    public void print() {
-        list.print();
-    }
-
-    public Boolean isEmpty() {
-        return list.isEmpty();
-    }
-
-    public int size() {
-        return list.size();
     }
 }

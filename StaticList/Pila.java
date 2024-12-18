@@ -1,7 +1,7 @@
 package StaticList;
 
 public class Pila<T> {
-    ListTest<T> list;
+    protected ListTest<T> list;
 
     public Pila(int length) {
         list = new ListTest<T>(length);
@@ -33,5 +33,11 @@ public class Pila<T> {
 
     public void copy(Pila<T> t) {
         list.copyList(t.list);
+    }
+    
+    public T ptp() {
+        T l = top();
+        pop();
+        return l;
     }
 }
